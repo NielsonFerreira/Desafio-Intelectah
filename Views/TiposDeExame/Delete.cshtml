@@ -1,0 +1,37 @@
+﻿@model Desafio_Intelectah.Models.Tipo_de_exame
+
+@{
+    ViewBag.Title = "Deletar tipo de exame";
+}
+
+<h2>Você tem certeza que deseja deletar o tipo de exame abaixo?</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <label>Nome</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            <label>Descrição</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    }
+</div>

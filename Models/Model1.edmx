@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Desafio_IntelectahModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Consulta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="paciente" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tipo_de_exame" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="data" Type="date" Nullable="false" />
+          <Property Name="hora" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Exame">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="observacoes" Type="varchar" MaxLength="1000" />
+          <Property Name="tipo_exame" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cpf" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="data_nascimento" Type="date" Nullable="false" />
+          <Property Name="sexo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="telefone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tipo_de_exame">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <Association Name="FK_Consulta_Consulta">
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="1" />
+          <End Role="Consulta1" Type="Self.Consulta" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Consulta1">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exame_Tipo_de_exame1">
+          <End Role="Tipo_de_exame" Type="Self.Tipo_de_exame" Multiplicity="1" />
+          <End Role="Exame" Type="Self.Exame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_de_exame">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Exame">
+              <PropertyRef Name="tipo_exame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Desafio_IntelectahModelStoreContainer">
+          <EntitySet Name="Consulta" EntityType="Self.Consulta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exame" EntityType="Self.Exame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paciente" EntityType="Self.Paciente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_de_exame" EntityType="Self.Tipo_de_exame" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Consulta_Consulta" Association="Self.FK_Consulta_Consulta">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="Consulta1" EntitySet="Consulta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exame_Tipo_de_exame1" Association="Self.FK_Exame_Tipo_de_exame1">
+            <End Role="Tipo_de_exame" EntitySet="Tipo_de_exame" />
+            <End Role="Exame" EntitySet="Exame" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Desafio_IntelectahModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Consulta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="paciente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo_de_exame" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="hora" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Consulta1" Relationship="Self.FK_Consulta_Consulta" FromRole="Consulta" ToRole="Consulta1" />
+          <NavigationProperty Name="Consulta2" Relationship="Self.FK_Consulta_Consulta" FromRole="Consulta1" ToRole="Consulta" />
+        </EntityType>
+        <EntityType Name="Exame">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="observacoes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_exame" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tipo_de_exame" Relationship="Self.FK_Exame_Tipo_de_exame1" FromRole="Exame" ToRole="Tipo_de_exame" />
+        </EntityType>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpf" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_nascimento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="sexo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tipo_de_exame">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Exames" Relationship="Self.FK_Exame_Tipo_de_exame1" FromRole="Tipo_de_exame" ToRole="Exame" />
+        </EntityType>
+        <Association Name="FK_Consulta_Consulta">
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="1" />
+          <End Role="Consulta1" Type="Self.Consulta" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Consulta1">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exame_Tipo_de_exame1">
+          <End Role="Tipo_de_exame" Type="Self.Tipo_de_exame" Multiplicity="1" />
+          <End Role="Exame" Type="Self.Exame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_de_exame">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Exame">
+              <PropertyRef Name="tipo_exame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Desafio_IntelectahEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Consultas" EntityType="Self.Consulta" />
+          <EntitySet Name="Exames" EntityType="Self.Exame" />
+          <EntitySet Name="Pacientes" EntityType="Self.Paciente" />
+          <EntitySet Name="Tipo_de_exame" EntityType="Self.Tipo_de_exame" />
+          <AssociationSet Name="FK_Consulta_Consulta" Association="Self.FK_Consulta_Consulta">
+            <End Role="Consulta" EntitySet="Consultas" />
+            <End Role="Consulta1" EntitySet="Consultas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exame_Tipo_de_exame1" Association="Self.FK_Exame_Tipo_de_exame1">
+            <End Role="Tipo_de_exame" EntitySet="Tipo_de_exame" />
+            <End Role="Exame" EntitySet="Exames" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Desafio_IntelectahModelStoreContainer" CdmEntityContainer="Desafio_IntelectahEntities">
+          <EntitySetMapping Name="Consultas">
+            <EntityTypeMapping TypeName="Desafio_IntelectahModel.Consulta">
+              <MappingFragment StoreEntitySet="Consulta">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="paciente" ColumnName="paciente" />
+                <ScalarProperty Name="tipo_de_exame" ColumnName="tipo_de_exame" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exames">
+            <EntityTypeMapping TypeName="Desafio_IntelectahModel.Exame">
+              <MappingFragment StoreEntitySet="Exame">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="observacoes" ColumnName="observacoes" />
+                <ScalarProperty Name="tipo_exame" ColumnName="tipo_exame" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pacientes">
+            <EntityTypeMapping TypeName="Desafio_IntelectahModel.Paciente">
+              <MappingFragment StoreEntitySet="Paciente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="cpf" ColumnName="cpf" />
+                <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_de_exame">
+            <EntityTypeMapping TypeName="Desafio_IntelectahModel.Tipo_de_exame">
+              <MappingFragment StoreEntitySet="Tipo_de_exame">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
